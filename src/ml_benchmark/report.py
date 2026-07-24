@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from .utils import validate_metrics
 import csv
 import json
 from pathlib import Path
@@ -16,7 +16,7 @@ def load_metrics(metrics_path: str = "artifacts/metrics.json") -> dict:
 
 def print_report(metrics_path: str = "artifacts/metrics.json") -> None:
     data = load_metrics(metrics_path)
-
+    validate_metrics(data)
     print("\nModel Benchmark Results")
     print("=" * 40)
 
@@ -33,6 +33,7 @@ def export_csv(
     output_path: str = "artifacts/results.csv",
 ) -> None:
     data = load_metrics(metrics_path)
+    validate_metrics(data)
 
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
